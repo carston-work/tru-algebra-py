@@ -1,21 +1,18 @@
 from flask import Flask
 from app.extensions import *
-from app.secrets import secret_key, pgusername, pgpass, recap_public, recap_private
-from boto.s3.connection import S3Connection
 import os
 
 
 def create_app():
     app = Flask(__name__)
-    s3 = S3Connection(os.environ[''], os.environ[''])
-    app.config["SECRET_KEY"] = secret_key
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{pgusername}:{pgpass}@https://tru-algebra-py.herokuapp.com/:5432/tru-algebra-py'
+    app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['DEBUG'] = True
     
 
-    app.config["RECAPTCHA_PUBLIC_KEY"] = recap_public
-    app.config["RECAPTCHA_PRIVATE_KEY"] = recap_private
+    app.config["RECAPTCHA_PUBLIC_KEY"] = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+    app.config["RECAPTCHA_PRIVATE_KEY"] = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
     init_extensions(app)
 

@@ -1,6 +1,7 @@
 from app import db, create_app
 from sympy import *
 from latex2sympy2 import latex2sympy
+import os
 
 
 app = create_app()
@@ -63,12 +64,11 @@ def create_perfs():
 
 def reset():
     from app.models import Teacher, Student, Class
-    from app.secrets import owner_password, student_password
     db.drop_all()
     db.create_all()
-    owner = Teacher('cheat-commando', 'Cheat', 'Commando', owner_password, 'Mr.')
+    owner = Teacher('cheat-commando', 'Cheat', 'Commando', os.environ.get('OWNER_PASSWORD'), 'Mr.')
     owner_class = Class(1, 'Foundations 6')
-    student = Student('code-monkey', 'Code', 'Monkey', student_password, 1)
+    student = Student('code-monkey', 'Code', 'Monkey', os.environ.get('STUDENT_PASSWORD'), 1)
     db.session.add(owner)
     db.session.add(owner_class)
     db.session.add(student)
