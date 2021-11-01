@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% include "math_jax.html" %}
+
+{% block title %}Create Assignment{% endblock %}
+
+{% block content %}
+    <main>
+        <h3>Create assignment for {{ my_class.class_name }}</h3>
+        <div>$${{ my_equation.lhs }}={{my_equation.rhs}}$$</div>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="due_date">Due Date: </label>
+            <input type="date" id="due_date" name="due_date">
+            <label for="due_time">Due at: </label>
+            <input type="time" id="due_time" name="due_time">
+            <input type="submit" value='Create Assignment'>
+        </form>
+    </main>
+
+
+{% endblock %}

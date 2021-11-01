@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% include "math_jax.html" %}
+
+{% block title %}Add Assignment{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Add assignment for {{ my_class.class_name }}</h3>
+        <form method="GET">
+            {{ form1.csrf_token }}
+            {{ form1.lower_bound.label }}
+            {{ form1.lower_bound }}
+            <br>
+            {{ form1.upper_bound.label }}
+            {{ form1.upper_bound }}
+        </form>
+    </div>
+    <div>
+        <ul class="eq_list">
+        {% for equation in equations %}
+            <li>
+                <div>$${{ equation.lhs }} = {{ equation.rhs }}$$</div><div>Difficulty:{{ equation.difficulty }}</div>
+                <a href='{{ url_for("assignments.add_assignment", class_id=my_class.class_id, equation_id=equation.equation_id) }}'>Assign Equation</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+
+
+{% endblock %}

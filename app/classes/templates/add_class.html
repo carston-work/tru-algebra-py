@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Create new class{% endblock %}
+
+{% block content %}
+<h3>Add a class</h3>
+<form method="POST">
+    {{ form.csrf_token }}
+    {{ form.class_name.label }}
+    {{ form.class_name }}
+    <br>
+    {{ form.submit }}
+</form>
+
+
+{% endblock %}

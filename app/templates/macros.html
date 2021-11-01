@@ -1,0 +1,7 @@
+{% macro assignments_due(assignment, cls, message) %}
+<li class='{{ cls }}'>
+    <a href="{{ url_for('equations.solve', equation_id=assignment.equation_id) }}">Due {{ assignment.due_date|string|truncate(10, True, '') }}</a>
+    <div>$${{ assignment.equation.lhs }}={{ assignment.equation.rhs }}$$</div>
+    <div>{{ message }}</div>
+</li>
+{% endmacro %}

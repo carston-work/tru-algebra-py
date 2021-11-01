@@ -1,0 +1,5 @@
+venv/
+*.pyc
+app/templates/generic_template.html
+trial.py
+app/secrets/__init__.py

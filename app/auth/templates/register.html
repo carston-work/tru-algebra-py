@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {{ form.csrf_token }}
+        <h2>Register for an account with TruAlgebra</h2>
+        {{ form.username.label }}<br>
+        {{ form.username }}
+        {% if form.username.errors %}
+            <ul>
+                {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        {{ form.first.label }}<br>
+        {{ form.first }}
+        {% if form.first.errors %}
+            <ul>
+                {% for error in form.first.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        {{ form.last.label }}<br>
+        {{ form.last }}
+        {% if form.last.errors %}
+            <ul>
+                {% for error in form.last.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        {{ form.password.label }}<br>
+        {{ form.password }}
+        {% if form.password.errors %}
+            <ul>
+                {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        {{ form.password_confirm.label }}<br>
+        {{ form.password_confirm }}
+        {% if form.password_confirm.errors %}
+            <ul>
+                {% for error in form.password_confirm.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        {{ form.role.label }}<br>
+        {{ form.role }}
+        {% if form.role.errors %}
+            <ul>
+                {% for error in form.role.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        <div id="title_field">
+        {{ form.title.label }}<br>
+        {{ form.title }}
+        {% if form.title.errors %}
+            <ul>
+                {% for error in form.title.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        <br>
+        </div>
+        {{ form.recaptcha }}
+        {{ form.submit }}
+    </form>
+    <script>
+        title_field = document.getElementById('title_field')
+        title_field.hidden = true
+        roles = document.querySelectorAll('[name="role"]');
+        for (let i = 0; i < 2; i++) {
+            roles[i].addEventListener("change", event => {
+                if (roles[i].checked == true && roles[i].value == '1') {
+                    title_field.hidden = false
+                }
+                else {
+                    title_field.hidden = true
+                }
+            })
+        }
+    </script>
+{% endblock %}

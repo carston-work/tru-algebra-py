@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Summary page: {{ my_class.class_name }}{% endblock %}
+
+{% block content %}
+    <main>
+        <div>
+            <h3>{{ my_class.class_name }}</h3>
+        </div>
+        <h6>Students:</h6>
+        <table>
+            {% for student in my_class.students %}
+                <tr>
+                    <td>{{ student.user.last_name|capitalize }}, {{ student.user.first_name|capitalize }}</td>
+                    <td><a href="{{ url_for('users.stats', user_id=student.user.user_id) }}">Summary</a></td>
+                    <td class='last'><a href="#">Remove</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div>
+            <a href="{{ url_for('assignments.search_assignment', class_id=my_class.class_id) }}">Add assignment</a>
+        </div>
+    </main>
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}TruAlgebra{% endblock %}
+
+{% block content %}
+<main>
+    <div><h1>TruAlgebra</h1></div>
+    <div><h3>Algebra remediation through trial-and-error</h3></div>
+    {% if not current_user.is_authenticated %}
+    <div><a href="{{ url_for('equations.solve', equation_id=demo_id) }}">Click here for a demo!</a></div>
+    {% endif %}
+</main>
+{% endblock %}

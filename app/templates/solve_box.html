@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- MathJax-script -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- CSS pages -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='solve_css.css') }}">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='tru-algebra.ico') }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div id="title"><h2><a href="/">TruAlgebra</a></h2></div>
+        <div id="nav-links">
+            {% if current_user.is_authenticated %}
+                {{ current_user.role.capitalize() }}: <a href="{{ url_for('users.profile') }}">{{ current_user.first_name.capitalize() }} {{ current_user.last_name.capitalize() }}</a> | <a href="{{ url_for('auth.logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth.register') }}">Register</a> | <a href="{{ url_for('auth.login') }}">Login</a>
+            {% endif %}
+        </div>
+    </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }} | <button>x</button></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    {% block content %}
+    <div id="chalkboard">
+        <div id=equation>$${{ equation.lhs }}={{equation.rhs}}$$</div>
+        <button id='lhs' class="distribute simp">Dist.</button>
+        <button id='comb_lhs' class='combine simp'>Comb.</button>
+        <button id='rhs' class="distribute simp">Dist.</button>
+        <button id='comb_rhs' class='combine simp'>Comb.</button>
+    </div>
+    <div id = "middle">
+        <div id = "algL" class = "algs"></div>
+        <div id = "algR" class = "algs"></div>
+    </div>
+    <div id = 'all_buttons'>
+        <div id = 'helpPad'>
+            {% for i in ['hint', "undo"] %}
+                <button id="{{ i }}">{{ i|capitalize }}</button>
+            {% endfor %}
+        </div>
+        <div id = "keyPad">
+            <div id = "opPad">
+                {% for i in ["+", "-", "×", "÷"] %}
+                    <button id='{{ i }}' class="ops">{{ i }}</button>
+                {% endfor %}
+            </div>
+            <div id = "numPad">
+                {% for i in [1, 2, 3, 4, 5, 6, 7, 8, 9] %}
+                    <button id="{{ i }}"class="nums">{{ i }}</button>
+                    {% endfor %}
+                <button id="neg">(-)</button>
+                <button id="0" class="nums">0</button>
+                <button id="del">del</button>
+            </div>
+            <button id="enter">Enter</button>
+        </div>
+        <div id="simpPad">
+            <button id="swap">Swap</button>
+            <button id="var">(x)</button>
+        </div>
+    </div>
+    <div id="endBox" hidden='true'>
+        <div>You've completed the equation! Congratulations! {% if current_user.is_authenticated and current_user.role == 'student' %}Please rate the difficulty of the equation:</div>
+        <div>
+            <form action="/equations/finished" method="POST">
+                {{ form.csrf_token }}
+                {{ form.diff.label }}
+                {{ form.diff }}
+                {{ form.submit }}
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+    
+    {% block script %}{% endblock %}
+</body>
+</html>

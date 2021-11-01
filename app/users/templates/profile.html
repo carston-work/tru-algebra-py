@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from 'macros.html' import assignments_due %}
+{% if current_user.role == 'student' %}
+    {% include 'math_jax.html' %}
+{% endif %}
+
+{% block title %}{{ current_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+    <div id="show_classes">
+    {% if current_user.role == 'student' %}
+        {% if student.classroom %}
+            <h3>My Class: {{ student.classroom.class_name }}</h3><br>
+            <h6>Assignments:</h6>
+            <ul class="eq_list">
+                {% for assignment in better_info %}
+                    {% if my_student_perfs[loop.index0] %}
+                        {{ assignments_due(assignment, 'past_due', 'Completed') }}
+                    {% elif assignment.due_date < today() %}
+                        {{ assignments_due(assignment, 'dead_due', 'Late') }}
+                    {% else %}
+                        {{ assignments_due(assignment, '', 'To-do') }}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('users.stats', user_id=student.user_id) }}">View my stats</a>
+        {% else %}
+            <h6>You have not joined a class yet</h6>
+            <a href="{{ url_for('classes.search') }}">Find your classroom</a>
+        {% endif %}
+    {% elif current_user.role == 'teacher' %}
+        <h3>My Classes</h3><br>
+        <a href="{{ url_for('classes.add_class', teacher_id=current_user._teach.teacher_id) }}">Create New Class</a>
+        <ul>
+            {% for my_class in teacher.classes %}
+            <li><a href="{{ url_for('classes.view', class_id=my_class.class_id) }}">{{ my_class.class_name }}</a> | Students: {{ my_class.students|length }} | <a href="{{ url_for('assignments.search_assignment', class_id=my_class.class_id) }}">Add assignment</a></li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Class Search{% endblock %}
+
+{% block content %}
+<main>
+    <h3>Class Search</h3>
+    <aside><form method="POST">{{ form.csrf_token }}{{ form.teacher_last_name.label }}{{ form.teacher_last_name(placeholder='(required)') }} | {{ form.teacher_first_name.label }}{{ form.teacher_first_name(placeholder='(optional)') }}<br>{{ form.submit }}</form></aside>
+    {% if teachers %}
+        <ul>
+            {% for teacher in teachers %}
+                {% for class in teacher.classes %}
+                    <li>{{ class.class_name }} | {{ teacher.title }} {{ teacher.user.first_name }} {{ teacher.user.last_name }} | <a href="{{ url_for('classes.add_student', class_id=class.class_id) }}">Join class</a></li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</main>
+
+
+{% endblock %}

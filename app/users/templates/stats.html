@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ current_user.username }}'s stats{% endblock %}
+
+{% block content %}
+<main>
+    <table>
+        <tr><td>number of hints requested</td><td>{{ stats.total_hints }}</td></tr>
+        <tr><td>number of hints requested per attempt</td><td>{{ stats.avg_hints }}</td></tr>
+        <tr><td>average time of completion</td><td>{{ stats.avg_time }}</td></tr>
+        <tr><td>average diff rating</td><td>{{ stats.avg_diff_rating }}</td></tr>
+    </table>
+    {% if current_user.role == 'teacher' %}
+        <a href="{{ url_for('classes.view', class_id=classroom.class_id) }}">Return to class roster</a>
+    {% endif %}
+</main>
+
+
+{% endblock %}
