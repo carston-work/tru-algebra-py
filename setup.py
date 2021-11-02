@@ -1,6 +1,4 @@
 from app import db, create_app
-from sympy import *
-from latex2sympy2 import latex2sympy
 import os
 
 
@@ -78,4 +76,4 @@ def reset():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=os.environ.get('PORT'))
