@@ -191,7 +191,6 @@ def hint():
     lhs = latex2sympy(session['lhs'])
     lhs_tree = preorder_traversal(lhs)
     hint = None
-    app.logger.info(srepr(lhs))
     if len(list(lhs_tree)) > 3:
         tree = preorder_traversal(lhs)
     else:
