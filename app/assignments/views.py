@@ -16,7 +16,7 @@ def search_assignment(class_id):
     equations = db.engine.execute('''
     SELECT eq.equation_id, eq.lhs as lhs, eq.rhs as rhs, ROUND(AVG(p.diff_rating), 2) as "difficulty"
     FROM equations as eq
-    JOIN performances as p
+    LEFT JOIN performances as p
     ON eq.equation_id = p.equation_id
     GROUP BY eq.equation_id
     ORDER BY "difficulty"''')
