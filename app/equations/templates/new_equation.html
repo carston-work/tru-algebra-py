@@ -21,8 +21,8 @@
     </main>
     <script>
         document.getElementById('renderBut').addEventListener('click', () => {
-            lhs = document.getElementById('lhs').nodeValue
-            rhs = document.getElementById('rhs').nodeValue
+            lhs = document.getElementById('lhs').value
+            rhs = document.getElementById('rhs').value
             document.getElementById('renderSpot').textContent = `$$${lhs}=${rhs}$$`
             MathJax.typeset()
             document.getElementById('submit').hidden = false
