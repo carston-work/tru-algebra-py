@@ -6,14 +6,14 @@
 
 {% block content %}
     <main>
-        <p>Enter a custom equation below in LaTeX. Any time you need to use '\' please use '\\' instead.</p>
+        Enter a custom equation below in LaTeX. Any time you need to use '\\' please use '\\\\' instead.
         <form method="POST">
             {{ form.csrf_token }}
             <div>
                 {{ form.lhs(placeholder='left-hand side') }}={{ form.rhs(placeholder='right-hand side') }}
             </div>
             <div>
-                <button id='renderBut'>Render</button>
+                <p id='renderBut'>Render</p>
                 <div id='renderSpot'></div>
                 {{ form.submit(hidden=True) }}
             </div>
@@ -21,7 +21,7 @@
     </main>
     <script>
         document.getElementById('renderBut').addEventListener('click', () => {
-            lhs = document.getElementById('lhs').textContent
+            lhs = document.getElementById('lhs').
             rhs = document.getElementById('rhs').textContent
             document.getElementById('renderSpot').textContent = `$$${lhs}=${rhs}$$`
             MathJax.typeset()
