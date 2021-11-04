@@ -215,7 +215,7 @@ def hint():
     return json.dumps(hint)
 
 
-@equations.route('/new_equation', methods=["POST"])
+@equations.route('/new_equation', methods=["GET", "POST"])
 @login_required
 def new_equation():
     if current_user.role != 'teacher':
