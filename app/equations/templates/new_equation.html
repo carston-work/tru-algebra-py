@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% includes 'math_jax.html' %}
+
+{% block title %}New Equation{% endblock %}
+
+{% block content %}
+    <main>
+        <p>Enter a custom equation below in LaTeX. Any time you need to use '\' please use '\\' instead.</p>
+        <form method="POST">
+            {{ form.csrf_token }}
+            <div>
+                {{ form.lhs(placeholder='left-hand side') }}={{ form.rhs(placeholder='right-hand side') }}
+            </div>
+            <div>
+                <button id='renderBut'>Render</button>
+                <div id='renderSpot'></div>
+                {{ form.submit(hidden=True) }}
+            </div>
+        </form>
+    </main>
+    <script>
+        document.getElementById('renderBut').addEventListener('click', () => {
+            lhs = document.getElementById('lhs').textContent
+            rhs = document.getElementById('rhs').textContent
+            document.getElementById('renderSpot').textContent = `$$${lhs}=${rhs}$$`
+            MathJax.typeset()
+            document.getElementById('submit').hidden = false
+        })
+    </script>
+{% endblock %}

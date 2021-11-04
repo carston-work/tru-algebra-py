@@ -1,12 +1,11 @@
-from flask import Blueprint, url_for, render_template, redirect, request, session, current_app, jsonify
-from flask_login import current_user
+from flask import Blueprint, url_for, render_template, redirect, request, session, current_app, jsonify, flash
+from flask_login import current_user, login_required
 from app import db
-from app.equations.forms import DiffRating
+from app.equations.forms import DiffRating, NewEquation
 from sqlalchemy import desc
-from app.models import Equation, Performance, Student
-from sympy import *
+from app.models import Equation, Performance, Student, Teacher
+from sympy import Symbol, latex, expand, Rational, Pow, Add, Mul, together, preorder_traversal
 from latex2sympy2 import latex2sympy
-from random import randint
 from datetime import datetime
 import json
 
@@ -33,11 +32,14 @@ def _do_math(alg_expr):
     return do_math
 
 def check_complete():
-    if session['lhs'] == 'x' or session['rhs'] == 'x':
+    if session['lhs'] == '0' and session['rhs'] == '0':
+        session['solved'] = True
+        session['end_time'] = datetime.now()
+    elif session['lhs'] == 'x' or session['rhs'] == 'x':
         lhs, rhs = latex2sympy(session['lhs']), latex2sympy(session['rhs'])
-        app.logger.info(srepr(rhs))
-        app.logger.info(rhs.args)
-        if (isinstance(lhs, Symbol) and (isinstance(rhs, Rational) or (isinstance(rhs, Mul) and x not in rhs.args))) or\
+        if 'x' in session['lhs'] and 'x' in session['rhs']:
+            session['solved'] = False
+        elif (isinstance(lhs, Symbol) and (isinstance(rhs, Rational) or (isinstance(rhs, Mul) and x not in rhs.args))) or\
             (isinstance(rhs, Symbol) and (isinstance(lhs, Rational) or (isinstance(lhs, Mul) and x not in lhs.args))):
             session['lhs'], session['rhs'] = latex(expand(lhs)), latex(expand(rhs))
             session['solved'] = True
@@ -191,20 +193,48 @@ def hint():
     lhs = latex2sympy(session['lhs'])
     lhs_tree = preorder_traversal(lhs)
     hint = None
+    tree = None
     if len(list(lhs_tree)) > 3:
         tree = preorder_traversal(lhs)
     else:
         rhs = latex2sympy(session['rhs'])
         rhs_tree = preorder_traversal(rhs)
-        tree = rhs_tree
-    for node in tree:
-        if isinstance(node, Mul):
-            if isinstance(node.args[-1], Pow):
-                hint = 'mul'
+        if len(list(rhs_tree)) > 3:
+            tree = preorder_traversal(rhs)
+    if tree:
+        for node in tree:
+            if isinstance(node, Mul):
+                if isinstance(node.args[-1], Pow):
+                    hint = 'mul'
+                    break
+                hint = 'div'
                 break
-            hint = 'div'
-            break
-        elif isinstance(node, Add):
-            hint = '+-'
-            break
+            elif isinstance(node, Add):
+                hint = '+-'
+                break
     return json.dumps(hint)
+
+
+@equations.route('/new_equation')
+@login_required
+def new_equation():
+    if current_user.role != 'teacher':
+        flash('You do not have permission to perform that action.')
+        return redirect(url_for('users.profile'))
+    form = NewEquation()
+    teacher = Teacher.query.filter_by(user_id=current_user.user_id).first()
+    if form.validate_on_submit():
+        #stuff
+        try:
+            new_lhs = latex2sympy(form.lhs.data)
+            new_rhs = latex2sympy(form.rhs.data)
+            new_lhs += 2*x
+            new_rhs += 2*x
+        except:
+            return render_template('new_equation.html', form=form)
+        else:
+            new_equation = Equation(teacher.teacher_id, form.lhs.data, form.rhs.data)
+            db.session.add(new_equation)
+            db.session.commit()
+    
+    return render_template('new_equation.html', form=form)

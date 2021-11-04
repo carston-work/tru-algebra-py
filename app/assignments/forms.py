@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, SubmitField, IntegerField
-from wtforms.validators import InputRequired, DataRequired
+from wtforms.validators import InputRequired, DataRequired, Length
 
 
 class AssignmentFilter(FlaskForm):
