@@ -22,7 +22,7 @@ a {
     text-decoration: none;
 }
 
-a:hover, #renderBut {
+a:hover, #renderBut:hover {
     text-align: center;
     font-weight: bold;
     background-color: white;
