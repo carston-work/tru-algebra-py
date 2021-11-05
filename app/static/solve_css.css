@@ -87,6 +87,10 @@
     width: 60px;
 }
 
+.simp {
+    max-width: 10%;
+}
+
 #simpPad > *, .simp {
     font-size:20px;
 }
