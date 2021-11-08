@@ -225,6 +225,8 @@ def new_equation():
     if form.validate_on_submit():
         backslash_lhs = form.lhs.data.replace('\\', '\\\\')
         backslash_rhs = form.rhs.data.replace('\\', '\\\\')
+        app.logger.info(backslash_lhs)
+        app.logger.info(backslash_rhs)
         try:
             new_lhs = latex2sympy(backslash_lhs)
             new_rhs = latex2sympy(backslash_rhs)
