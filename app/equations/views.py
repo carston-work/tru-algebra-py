@@ -223,10 +223,11 @@ def new_equation():
     form = NewEquation()
     teacher = Teacher.query.filter_by(user_id=current_user.user_id).first()
     if form.validate_on_submit():
-        #stuff
+        backslash_lhs = form.lhs.data.replace('\\', '\\\\')
+        backslash_rhs = form.rhs.data.replace('\\', '\\\\')
         try:
-            new_lhs = latex2sympy(form.lhs.data)
-            new_rhs = latex2sympy(form.rhs.data)
+            new_lhs = latex2sympy(backslash_lhs)
+            new_rhs = latex2sympy(backslash_rhs)
             new_lhs += 2*x
             new_rhs += 2*x
         except:
