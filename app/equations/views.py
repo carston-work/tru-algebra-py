@@ -72,7 +72,6 @@ session_attrs = ['lhs', 'rhs', 'hints', 'start_time', 'end_time', 'eq_id', 'atte
 
 @equations.route('/solve/<equation_id>')
 def solve(equation_id):
-    session.permanent = False
     for attr in session_attrs:
         if session.get(attr):
             session.pop(attr)

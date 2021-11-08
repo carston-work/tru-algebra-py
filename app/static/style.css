@@ -47,6 +47,10 @@ main > * {
     margin-top: 0.5em;
 }
 
+.helplinks {
+    font-size: 0.5em;
+}
+
 .eq_list > li {
     display: flex;
     justify-content: space-evenly;
@@ -56,6 +60,8 @@ main > * {
     border-top: white solid 2px;
     border-bottom: white solid 2px;
     font-size: 0.5em;
+    width: 100%;
+    overflow: auto;
 }
 
 ul {
@@ -69,6 +75,7 @@ li > * {
 
 tr {
     box-sizing: content-box;
+    width: 100%;
     display: block;
     overflow: auto;
 }
@@ -79,7 +86,7 @@ td {
     width: max-content;
     padding-left:1em;
     padding-right:1em;
-    font-size:0.7em;
+    font-size:0.5em;
     padding-bottom: 0.25em;
     padding-top: 0.25em;
     margin-bottom: 0.5em;
