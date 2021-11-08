@@ -18,6 +18,10 @@
     overflow: auto;
 }
 
+#equation {
+    height: 50%;
+}
+
 #middle {
     display: flex;
     justify-content: space-between;
@@ -83,6 +87,11 @@
     font-size: 20px;
 }
 
+#distcomb {
+    height: 60px;
+    margin-top: 0.5em;
+}
+
 #simpPad, .simp {
     width: 60px;
 }
@@ -97,7 +106,6 @@
 
 #lhs, #comb_lhs {
     float: left;
-    margin-top:2em;
 }
 
 #lhs {
@@ -106,7 +114,6 @@
 
 #rhs, #comb_rhs {
     float: right;
-    margin-top:2em;
 }
 
 #rhs {
@@ -115,7 +122,6 @@
 
 #comb_lhs, #comb_rhs {
     font-size: 15px;
-    margin-top: 2.7em;
 }
 
 
