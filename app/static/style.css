@@ -75,7 +75,7 @@ li > * {
 
 tr {
     box-sizing: content-box;
-    width: 100%;
+    width: 100vw;
     display: block;
     overflow: auto;
 }
@@ -90,10 +90,9 @@ td {
     padding-bottom: 0.25em;
     padding-top: 0.25em;
     margin-bottom: 0.5em;
-
 }
 
-.last {
+.last, .last > td {
     border-bottom: none;
     border-left:none;
 }
@@ -104,10 +103,6 @@ mjx-container {
     margin-left: 0px;
     margin-right: 0px;
 }
-
-/* .shrink_eqs {
-    font-size: 1.5vw;
-} */
 
 .past_due {
     color: gray;
