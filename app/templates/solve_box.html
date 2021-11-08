@@ -38,10 +38,12 @@
     {% block content %}
     <div id="chalkboard">
         <div id=equation>$${{ equation.lhs }}={{equation.rhs}}$$</div>
-        <button id='lhs' class="distribute simp">Dist.</button>
-        <button id='comb_lhs' class='combine simp'>Comb.</button>
-        <button id='rhs' class="distribute simp">Dist.</button>
-        <button id='comb_rhs' class='combine simp'>Comb.</button>
+        <div>
+            <button id='lhs' class="distribute simp">Dist.</button>
+            <button id='comb_lhs' class='combine simp'>Comb.</button>
+            <button id='rhs' class="distribute simp">Dist.</button>
+            <button id='comb_rhs' class='combine simp'>Comb.</button>
+        </div>
     </div>
     <div id = "middle">
         <div id = "algL" class = "algs"></div>
