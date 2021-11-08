@@ -5,7 +5,7 @@
 {% block content %}
 <main>
     <div><h1>TruAlgebra</h1></div>
-    <div><h6>Algebra remediation through trial-and-error</h6></div>
+    <div><h6>Algebra remediation through sandboxing</h6></div>
     {% if not current_user.is_authenticated %}
     <div><a id='demo_link' href="{{ url_for('equations.solve', equation_id=demo_id) }}">Click here for a demo!</a></div>
     {% endif %}

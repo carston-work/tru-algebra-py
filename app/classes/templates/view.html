@@ -5,15 +5,15 @@
 {% block content %}
     <main>
         <div>
-            <h3>{{ my_class.class_name }}</h3>
+            <h6>{{ my_class.class_name }}</h6>
         </div>
         <h6>Students:</h6>
         <table>
             {% for student in my_class.students %}
-                <tr>
+                <tr {% if loop.last %} class='last'{% endif %}>
                     <td>{{ student.user.last_name|capitalize }}, {{ student.user.first_name|capitalize }}</td>
                     <td><a href="{{ url_for('users.stats', user_id=student.user.user_id) }}">Summary</a></td>
-                    <td class='last'><a href="#">Remove</a></td>
+                    <td class='last'><a href="{{ url_for('classes.remove_student', student_id=student.student_id) }}">Remove</a></td>
                 </tr>
             {% endfor %}
         </table>
