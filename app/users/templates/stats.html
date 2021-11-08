@@ -7,7 +7,7 @@
     <table>
         <tr><td>number of hints requested</td><td class='last'>{{ stats.total_hints }}</td></tr>
         <tr><td>number of hints requested per attempt</td><td class='last'>{{ stats.avg_hints }}</td></tr>
-        <tr><td>average time of completion</td><td class='last'>{{ stats.avg_time }}</td></tr>
+        <tr><td>average time of completion</td><td class='last'>{{ avg_time }}</td></tr>
         <tr><td>average diff rating</td><td class='last'>{{ stats.avg_diff_rating }}</td></tr>
     </table>
     {% if current_user.role == 'teacher' %}

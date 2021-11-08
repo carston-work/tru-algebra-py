@@ -53,4 +53,7 @@ def stats(user_id):
     WHERE student_id={student.student_id}
     GROUP BY student_id;
     ''').first()
-    return render_template('stats.html', stats=stats, classroom=student.classroom)
+    avg_time = str(stats.avg_time)
+    _, min, sec = avg_time.split(':')
+    avg_time = f'{min} min {round(int(sec), 2)} sec'
+    return render_template('stats.html', stats=stats, classroom=student.classroom, avg_time=avg_time)
