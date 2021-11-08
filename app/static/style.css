@@ -12,6 +12,10 @@ header {
     align-items: center;
 }
 
+h6 {
+    font-size: 0.7em;
+}
+
 header > div {
     margin-left: 1em;
     margin-right: 1em;
@@ -51,19 +55,23 @@ main > * {
     margin-bottom: 0.5em;
     border-top: white solid 2px;
     border-bottom: white solid 2px;
-    width: 80%;
     font-size: 0.5em;
 }
 
 ul {
     margin-top: 1em;
+    text-align: center;
+}
+
+li > * {
+    min-width: max-content;
 }
 
 tr {
     box-sizing: content-box;
     padding-bottom: 5em;
     height: max-content;
-    
+
 }
 
 td {
