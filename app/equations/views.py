@@ -224,18 +224,16 @@ def new_equation():
     form = NewEquation()
     teacher = Teacher.query.filter_by(user_id=current_user.user_id).first()
     if form.validate_on_submit():
-        backslash_lhs = form.lhs.data
-        backslash_rhs = form.rhs.data
         try:
-            new_lhs = latex2sympy(backslash_lhs)
-            new_rhs = latex2sympy(backslash_rhs)
+            new_lhs = latex2sympy(form.lhs.data)
+            new_rhs = latex2sympy(form.rhs.data)
             new_lhs += 2*x
             new_rhs += 2*x
         except :
             flash("Input not accepted")
             return render_template('new_equation.html', form=form)
         else:
-            new_equation = Equation(teacher.teacher_id, backslash_lhs, backslash_rhs)
+            new_equation = Equation(teacher.teacher_id, form.lhs.data, form.rhs.data)
             db.session.add(new_equation)
             db.session.commit()
     
