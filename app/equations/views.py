@@ -1,3 +1,4 @@
+from logging import error
 from flask import Blueprint, url_for, render_template, redirect, request, session, current_app, jsonify, flash
 from flask_login import current_user, login_required
 from app import db
@@ -223,16 +224,14 @@ def new_equation():
     form = NewEquation()
     teacher = Teacher.query.filter_by(user_id=current_user.user_id).first()
     if form.validate_on_submit():
-        backslash_lhs = form.lhs.data.replace('\\', '\\\\')
-        backslash_rhs = form.rhs.data.replace('\\', '\\\\')
-        app.logger.info(backslash_lhs)
-        app.logger.info(backslash_rhs)
+        backslash_lhs = form.lhs.data
+        backslash_rhs = form.rhs.data
         try:
             new_lhs = latex2sympy(backslash_lhs)
             new_rhs = latex2sympy(backslash_rhs)
             new_lhs += 2*x
             new_rhs += 2*x
-        except:
+        except :
             flash("Input not accepted")
             return render_template('new_equation.html', form=form)
         else:
