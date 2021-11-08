@@ -48,10 +48,11 @@ main > * {
     justify-content: space-evenly;
     align-items: center;
     box-sizing: border-box;
-    margin-bottom: 2.5em;
+    margin-bottom: 0.5em;
     border-top: white solid 2px;
     border-bottom: white solid 2px;
     width: 80%;
+    font-size: 0.5em;
 }
 
 ul {
@@ -62,6 +63,7 @@ tr {
     box-sizing: content-box;
     padding-bottom: 5em;
     height: max-content;
+    
 }
 
 td {
