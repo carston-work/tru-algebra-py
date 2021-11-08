@@ -103,6 +103,11 @@ mjx-container {
     width: 40%;
     margin-left: 0px;
     margin-right: 0px;
+    font-size: 05vw;
+}
+
+.shrink_eqs {
+    font-size: 1.5vw;
 }
 
 .past_due {

@@ -6,8 +6,8 @@
 
 {% block content %}
     <main>
-        <h3>Create assignment for {{ my_class.class_name }}</h3>
-        <div>$${{ my_equation.lhs }}={{my_equation.rhs}}$$</div>
+        <h6>Create assignment for {{ my_class.class_name }}</h6>
+        <div class='shrink_eqs'>$${{ my_equation.lhs }}={{my_equation.rhs}}$$</div>
         <form method="POST">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <label for="due_date">Due Date: </label>
