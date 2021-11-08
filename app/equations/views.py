@@ -233,7 +233,7 @@ def new_equation():
         except:
             return render_template('new_equation.html', form=form)
         else:
-            new_equation = Equation(teacher.teacher_id, form.lhs.data, form.rhs.data)
+            new_equation = Equation(teacher.teacher_id, backslash_lhs, backslash_rhs)
             db.session.add(new_equation)
             db.session.commit()
     
