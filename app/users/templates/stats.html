@@ -11,7 +11,7 @@
         <tr><td>average diff rating</td><td class='last'>{{ stats.avg_diff_rating }}</td></tr>
     </table>
     {% if current_user.role == 'teacher' %}
-        <a href="{{ url_for('classes.view', class_id=classroom.class_id) }}">Return to class roster</a>
+        <a class='helplinks' href="{{ url_for('classes.view', class_id=classroom.class_id) }}">Return to class roster</a>
     {% endif %}
 </main>
 
