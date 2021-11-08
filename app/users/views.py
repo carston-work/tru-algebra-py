@@ -55,5 +55,5 @@ def stats(user_id):
     ''').first()
     avg_time = str(stats.avg_time)
     _, min, sec = avg_time.split(':')
-    avg_time = f'{min} min {round(int(sec), 2)} sec'
+    avg_time = f'{min} min {round(float(sec), 2)} sec'
     return render_template('stats.html', stats=stats, classroom=student.classroom, avg_time=avg_time)
